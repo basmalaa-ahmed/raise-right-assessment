@@ -1,0 +1,52 @@
+<header class="hero mt-5">
+  <div class="hero__content d-flex justify-content-center align-items-center flex-column text-center"
+  >
+    <h6 class="hero__subtitle">Donations Campaigns</h6>
+    <h1 class="hero__title pt-2">Make a Positive Impact</h1>
+    <p class="hero__text pt-2">
+      Every penny counts,<br />Donate now and make the world a better place.
+    </p>
+  </div>
+</header>
+
+<section class="mt-5 mb-5">
+  <div class="container my-5">
+    <div class="row g-4" *ngIf="!loading">
+      @for (campaign of campaigns; track campaign.id) {
+        
+      <div class="col-md-3 col-sm-6">
+        
+        <div class="campaign-card" (click)="goToDetails(campaign.id)">
+          <div class="campaign-card__image">
+            <img
+              [src]="campaign.imageUrl"
+              alt="{{ campaign.name }}"
+              class="w-100"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="campaign-card__body">
+            <progress
+              class="progress-bar"
+              [value]="campaign.currentAmount"
+              [max]="campaign.goal"
+            ></progress>
+            <h6 class="campaign-card__title">{{ campaign.name }}</h6>
+            <p class="campaign-card__info">Target: ${{ campaign.goal }}</p>
+            <p class="campaign-card__info">
+              Raised: ${{ campaign.currentAmount }}
+            </p>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+    @if (loading){
+    <div class="text-center py-5">
+      <p>Loading campaigns...</p>
+    </div>
+    }
+  </div>
+</section>
+<app-notification></app-notification>
